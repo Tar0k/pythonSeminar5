@@ -11,7 +11,7 @@
 import re
 
 # data = input()
-data = "(2 +  1)/9"
+data = "- 1.5 +(2 +  1)/9 "
 
 
 def do_something(string):
@@ -44,6 +44,14 @@ def do_something(string):
         plus_operation = plus_operation.group()
         plus_operation = sum([float(num) for num in plus_operation.split("+")])
         string = re.sub(r"[0-9.]+\+[0-9.]+", str(plus_operation), string)
+        string = do_something(string)
+
+    minus_operation = re.search(r"[0-9.]+-[0-9.]+", string)
+    if minus_operation is not None:
+        minus_operation = minus_operation.group()
+        elements = minus_operation.split("-")
+        minus_operation = float(elements[0]) - float(elements[1])
+        string = re.sub(r"[0-9.]+-[0-9.]+", str(minus_operation), string)
         string = do_something(string)
 
     return string
